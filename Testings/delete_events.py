@@ -1,6 +1,6 @@
 import requests
 
-API_URL = "http://0.0.0.0:8000/api"
+API_URL = "http://20.219.141.225:8000/api"
 api_key = input("API Key: ")
 
 
