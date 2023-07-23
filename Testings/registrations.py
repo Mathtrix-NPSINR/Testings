@@ -1,12 +1,11 @@
 import random
-import time
 
 import requests
 from faker import Faker
 
 
-# API_URL = "http://20.219.141.225:8080/"
-API_URL = "http://0.0.0.0:8080/"
+API_URL = "http://20.219.141.225:8080/"
+# API_URL = "http://0.0.0.0:8080/"
 
 
 schools = ["NPS INR", "NPS KRM", "NPS HSR", "NAFL", "TISB"]
@@ -37,8 +36,7 @@ events = {
 
 fake = Faker()
 
-for i in range(20):
-    # event = ("Agon", (2, "1C3nr44s7p3VNF_WHxWkKAaunQ1QvN-WcrwiKEYvUyNY"))
+for i in range(1000):
     event = random.choice(list(events.items()))
     data = {
         "form_id": event[1][1],
@@ -48,11 +46,12 @@ for i in range(20):
     }
 
     for i in range(1, event[1][0] + 1):
-        data[f"name_{i}"] = fake.name()
-        data[f"email_{i}"] = fake.email()
+        fake_name = fake.name()
+        data[f"name_{i}"] = fake_name
+        data[f"email_{i}"] = ".".join(fake_name.strip().split()) + "@gmail.com"
         data[f"phone_number_{i}"] = str(random.randint(1000000000, 9999999999))
 
     print(requests.post(API_URL, json=data))
     print(data)
-    time.sleep(5)
-    print("\n" * 3)
+    print("-" * 100)
+    print("\n")
