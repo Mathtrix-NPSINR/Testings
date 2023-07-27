@@ -3,7 +3,7 @@ from pathlib import Path
 
 import requests
 
-API_URL = "http://0.0.0.0:8000/api"
+API_URL = "http://20.219.141.225:8000/api"
 
 files = [
     "Agon.csv",
@@ -33,6 +33,8 @@ api_key = input("API KEY: ")
 
 
 for event_id, filename in enumerate(files, start=1):
+    print(f"{event_id}: {filename}\n\n")
+
     with open(
         Path("/Users/hari/Downloads/registrations/").joinpath(filename), "r"
     ) as file:
@@ -42,6 +44,8 @@ for event_id, filename in enumerate(files, start=1):
         for team in reader:
             if team is None:
                 continue
+
+            print(team[1])
 
             team_data = {
                 "team_school": team[1],
@@ -75,3 +79,5 @@ for event_id, filename in enumerate(files, start=1):
                         },
                     ).json()
                 )
+
+            print()
